@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Triangle Library Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #F0F0F0;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+
+
+
+<script src="https://cdn.rawgit.com/konvajs/konva/0.11.1/konva.min.js"></script>
+<script type="text/javascript" src="kshapejs.js"></script>
+
+
+<script>
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    var stage = new Konva.Stage({
+        container: 'container',
+        width: width,
+        height: height
+    });
+
+    var shapesLayer = new Konva.Layer();
+    var group = new Konva.Group({
+        draggable: true,
+        x: 50, y: 50
+    });
+
+    var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+
+    var poly = kshapejs.drawTriangle(20, 20, 50, 3);
+
+    poly.move({
+      x: 50, y: 0
+    });
+
+
+    var pin1 = kshapejs.drawLine(20, 20, 'h', 40, 3);
+    var pin2 = kshapejs.drawLine(20, 20, 'v', 40, 3);
+    var resistor1 = kshapejs.drawResistor(70, 70, 20, 3, "2 ohm");
+    var resistor2 = kshapejs.drawResistor(90, 120, 40, 3, "5 ohm");
+
+    var vsource = kshapejs.drawDcVoltageSource(200, 200, 100, 3);
+
+
+     //group.add(poly);
+     //group.add(pin1);
+     //group.add(pin2);
+     group.add(resistor1);
+    group.add(resistor2);
+    group.add(vsource);
+
+
+    group.on('mouseover', function() {
+        document.body.style.cursor = 'pointer';
+    });
+    group.on('mouseout', function() {
+        document.body.style.cursor = 'default';
+    });
+
+    shapesLayer.add(group);
+    stage.add(shapesLayer);
+
+
+</script>
+
+
+
+</body>
+</html>
